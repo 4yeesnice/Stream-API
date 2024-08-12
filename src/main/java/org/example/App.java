@@ -2,6 +2,10 @@ package org.example;
 
 
 import org.example.entity.Employee;
+import org.example.entity.Product;
+import org.example.entity.Transaction;
+import org.example.tasks.firstDay;
+import org.example.tasks.secondDay;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -67,114 +71,50 @@ public class App {
         System.out.println("=======================================");
         System.out.println("Stream API Java задачи");
         System.out.println("=======================================");
+        System.out.println("1 День");
+        System.out.println(" ");
+
         // 1-я задача
-        firstTask();
+        firstDay.firstTask();
         // 2-я задача
-        secondTask();
+        firstDay.secondTask();
         // 3-я задача
-        thirdTask();
+        firstDay.thirdTask();
         // 4-я задача
-        fourthTask();
+        firstDay.fourthTask();
         // 5-я задача
-        fifthTask();
+        firstDay.fifthTask();
         // 6-я задача
-        sixthTask();
-
-
-
-    }
-
-
-    public static void firstTask(){
-        // Разные подходы к решению первой задачи
-        // 1
-        System.out.println("Задача 1");
-
-        employees.stream()
-                .filter(employee -> employee.getSalary() > 50000 && employee.getAge() > 30)
-                .forEach(System.out::println);
+        firstDay.sixthTask();
 
         System.out.println("=======================================");
+        System.out.println("2 День");
+        System.out.println(" ");
 
-        // 2
-        Stream<Employee> employeesStream = employees.stream()
-                .filter(employee -> employee.getSalary() > 50000 && employee.getAge() > 30);
 
-        employeesStream.forEach(System.out::println);
-
-    }
-
-    public static void secondTask(){
-        // 2-я задача
+        // 1-я задача 2 день
+        secondDay.firstTask();
         System.out.println("=======================================");
-        System.out.println("Задача 2");
-
-        System.out.println("Отсортируйте отфильтрованный список сотрудников по имени в алфавитном порядке.");
-
-        employees.stream()
-                .sorted(Employee::compareTo).forEach(System.out::println);
-    }
-
-
-    public static void thirdTask(){
-        // 3-я задача
+        // 2-я задача 2 день
+        secondDay.secondTask();
         System.out.println("=======================================");
-        System.out.println("Задача 3");
-        System.out.println("Используя метод map, " +
-                "преобразуйте список сотрудников в список строк, содержащих информацию о каждом сотруднике в формате: Имя: {name}, Отдел: {department}");
-        employees.stream().map(employee -> "Имя: " + employee.getName() + ", Отдел: " + employee.getDepartment())
-                .forEach(System.out::println);
-    }
-
-
-    public static void fourthTask(){
-        // 4-я задача
+        // 3-я задача 2 день
+        secondDay.thirdTask();
         System.out.println("=======================================");
-        System.out.println("Задача 4");
-        System.out.println("Соберите преобразованный список в коллекцию List<String>");
-        System.out.println(employees.stream().collect(Collectors.toList()));
-    }
-
-
-    public static void fifthTask(){
-        // 5-я задача
+        // 4-я задача 2 день
+        secondDay.fourthTask();
         System.out.println("=======================================");
-        System.out.println("Задача 5");
-        System.out.println(" * Найдите среднюю зарплату сотрудников, отфильтрованных на этапе 2.\n" +
-                " * Найдите сотрудника с максимальной зарплатой.");
-
-        Double averageSalary = employees.stream()
-                .mapToDouble(Employee::getSalary)
-                .average()
-                .orElse(0);
-
-        System.out.println(averageSalary);
-
-        Optional<Employee> highestPaidEmployee = employees.stream().max(Comparator.comparingDouble(Employee::getSalary));
-
-        highestPaidEmployee.ifPresent(employee -> System.out.println("Highest Paid Employee: " + employee.getName() +
-                ".Salary: " + employee.getSalary()));
-
-    }
-
-    public static void sixthTask(){
-        // 6-я задача
+        // 5-я задача 2 день
+        secondDay.fifthTask();
         System.out.println("=======================================");
-        System.out.println("Задача 6");
-
-        System.out.println("* Используя метод groupingBy, сгруппируйте сотрудников по отделам, " +
-                "и подсчитайте количество сотрудников в каждом отделе.");
 
 
-        Map<String, Long> departamentCount = employees.stream()
-                .collect(Collectors.groupingBy(Employee::getDepartment, Collectors.counting()));
 
-        for (Map.Entry<String, Long> entry : departamentCount.entrySet()) {
-            System.out.println(entry.getKey() + ": " + entry.getValue());
-        }
-
-
-        }
 
     }
+
+
+
+
+}
 
