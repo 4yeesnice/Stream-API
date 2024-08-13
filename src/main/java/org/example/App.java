@@ -6,6 +6,7 @@ import org.example.entity.Product;
 import org.example.entity.Transaction;
 import org.example.tasks.firstDay;
 import org.example.tasks.secondDay;
+import org.example.tasks.thirdDay;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -71,6 +72,8 @@ public class App {
         System.out.println("=======================================");
         System.out.println("Stream API Java задачи");
         System.out.println("=======================================");
+
+
         System.out.println("1 День");
         System.out.println(" ");
 
@@ -94,6 +97,7 @@ public class App {
 
         // 1-я задача 2 день
         secondDay.firstTask();
+
         System.out.println("=======================================");
         // 2-я задача 2 день
         secondDay.secondTask();
@@ -109,6 +113,99 @@ public class App {
         System.out.println("=======================================");
 
 
+        List<String> sentences = Arrays.asList("Java is great", "Stream API is powerful", "I love programming");
+
+
+        Map<String, Integer> sentLength = sentences.stream()
+                .collect(Collectors.toMap(
+                        sentence -> sentence, // Key
+                        sentence -> sentence.split(" ").length // Value
+                ));
+
+//        sentLength.forEach(
+//                (s, integer) -> {
+//                    System.out.println("Строка: " + '"'+ s + '"'+ " содержит " + integer + " слов(а).");
+//                }
+//        );
+
+        /* Напишите программу, которая находит топ-N самых дорогих продуктов из списка объектов Product.
+        Используйте Stream API для сортировки продуктов по цене и выбора топ-N элементов.
+
+        Задача: Найти топ-2 самых дорогих продукта.
+         */
+
+        int n = 2;
+
+        List<Product> products = Arrays.asList(
+                new Product("Laptop", 1200),
+                new Product("Phone", 800),
+                new Product("Pen", 2),
+                new Product("Notebook", 150),
+                new Product("Tablet", 200)
+        );
+
+        List<String> mostExpensiveProducts = products.stream()
+                .sorted(Comparator.comparingDouble(Product::getPrice).reversed())
+                .limit(n)
+                .map(Product::getName)
+                .collect(Collectors.toList());
+
+//        mostExpensiveProducts.forEach(System.out::println);
+
+        /* Напишите программу, которая принимает список продуктов и строку поиска,
+        а затем возвращает список продуктов, названия которых содержат заданную подстроку (без учета регистра).
+         */
+
+        String searchQuery = "pen";
+
+        List<String> arrayQuery = products.stream()
+                .map(Product::getName)
+                .filter(name -> name.toLowerCase().contains(searchQuery.toLowerCase()))
+                .collect(Collectors.toList());
+
+//        arrayQuery.forEach(System.out::println);
+
+        /* Напишите программу, которая объединяет два списка объектов Product и удаляет дубликаты продуктов по их имени. */
+
+        List<Product> products1 = Arrays.asList(
+                new Product("Laptop", 1200),
+                new Product("Phone", 800)
+        );
+
+        List<Product> products2 = Arrays.asList(
+                new Product("Pen", 2),
+                new Product("Phone", 800),
+                new Product("Tablet", 200)
+        );
+
+
+        Map<String, Double> concProduct = Stream.concat(products1.stream(), products2.stream())
+                .distinct()
+                .collect(Collectors.toMap(
+                        Product::getName,
+                        Product::getPrice,
+                        (price1, price2) -> price2
+                ));
+
+//        concProduct.forEach((name, price) -> System.out.println(name + " " + price));
+
+
+        /* Напишите программу, которая находит элемент, который встречается наибольшее количество раз в списке строк.
+        Используйте Stream API для этой задачи. */
+
+        List<String> items = Arrays.asList("apple", "banana", "orange", "apple", "orange", "banana", "apple");
+
+
+        Map<String, Long> mostOccurringItem = items.stream()
+                .collect(Collectors.groupingBy(s -> s, Collectors.counting()));
+
+//        mostOccurringItem.entrySet().stream().max(Map.Entry.comparingByValue()).ifPresent(e -> System.out.println(e.getKey() + " : " + e.getValue()));
+
+
+
+
+
+
 
 
     }
@@ -117,4 +214,6 @@ public class App {
 
 
 }
+
+
 
